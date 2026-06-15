@@ -9,9 +9,10 @@ model = YOLO("yolo11n-cls.pt")
 
 model.train(
     data=os.path.join(os.path.dirname(__file__), "..", "data", "processed"),
-    epochs=50,
+    epochs=10,
     imgsz=224,
-    batch=64,
+    batch=32,
+    fraction=0.3,
     project=os.path.join(os.path.dirname(__file__), "..", "runs"),
     name="classify",
 )
