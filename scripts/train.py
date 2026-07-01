@@ -9,10 +9,14 @@ model = YOLO("yolo11n-cls.pt")
 
 model.train(
     data=os.path.join(os.path.dirname(__file__), "..", "data", "processed"),
-    epochs=10,
+    epochs=50,
     imgsz=224,
-    batch=32,
+    batch=16,
     fraction=0.3,
+    amp=False,        # MUST disable — AMP on CPU corrupts gradients silently
+    dropout=0.2,      # prevent overfitting
+    lr0=0.001,        # lower LR for stable fine-tuning
+    cache="ram",      # cache images in RAM — cuts epoch time by ~40%
     project=os.path.join(os.path.dirname(__file__), "..", "runs"),
     name="classify",
 )
